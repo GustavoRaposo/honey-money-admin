@@ -1,7 +1,11 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { LoginRequest, RegisterRequest, AuthResponse } from '../types/auth';
 import { Project, CreateProjectRequest, CreateProjectResponse } from '../types/project';
+import { Transaction, CreateTransactionRequest, TransactionSummary } from '../types/finance';
 import { STORAGE_KEYS } from '../constants';
+
+let mockTransactions: Transaction[] = [];
+let idCounter = 1;
 
 class ApiService {
   private api: AxiosInstance;
@@ -74,6 +78,37 @@ class ApiService {
   // Método para deletar projeto - DELETE /projects/:id
   async deleteProject(projectId: number): Promise<void> {
     await this.api.delete(`/projects/${projectId}`);
+  }
+
+  async getTransactions(filters?: any): Promise<Transaction[]> {
+    // Filtro simples mock
+    if (filters?.type) {
+      return mockTransactions.filter(t => t.type === filters.type);
+    }
+    return mockTransactions;
+  }
+
+  async getTransactionSummary(): Promise<TransactionSummary> {
+    const totalIncome = mockTransactions.filter(t => t.type === 'income').reduce((acc, t) => acc + t.amount, 0);
+    const totalExpenses = mockTransactions.filter(t => t.type === 'expense').reduce((acc, t) => acc + t.amount, 0);
+    return {
+      totalIncome,
+      totalExpenses,
+      balance: totalIncome - totalExpenses,
+      transactionCount: mockTransactions.length,
+    };
+  }
+
+  async createTransaction(data: CreateTransactionRequest): Promise<void> {
+    mockTransactions.push({
+      id: idCounter++,
+      ...data,
+      userId: 'mock-user',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      date: data.date || new Date().toISOString(),
+      category: data.category || '',
+    });
   }
 }
 

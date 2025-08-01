@@ -74,6 +74,9 @@
     }
     return undefined;
   },
+  
+  minValue: (min: number) => (value: number) =>
+    value < min ? `O valor mínimo é ${min}` : undefined,
 };
 
 export const validateField = (value: any, validations: Array<(value: any) => string | undefined>): string | undefined => {

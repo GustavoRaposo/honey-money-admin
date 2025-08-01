@@ -11,6 +11,7 @@ import { DashboardPage } from './pages/dashboard/DashboardPage';
 import { ProjectsPage } from './pages/projects/ProjectsPage';
 import { GlobalStyle, theme } from './styles';
 import { CalendarPage } from './pages/CalendarPage';
+import { FinancePage } from './pages/finance/FinancePage';
 
 const App: React.FC = () => {
   return (
@@ -41,6 +42,14 @@ const App: React.FC = () => {
               element={
                 <ProtectedRoute>
                   <CalendarPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/finance" 
+              element={
+                <ProtectedRoute>
+                  <FinancePage />
                 </ProtectedRoute>
               } 
             />
