@@ -139,6 +139,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
       href: '/projects' 
     },
     { 
+      id: 'finance', 
+      label: 'Finanças', 
+      icon: '💰', 
+      href: '/finance' 
+    },
+    { 
       id: 'tasks', 
       label: 'Tarefas', 
       icon: '📋', 

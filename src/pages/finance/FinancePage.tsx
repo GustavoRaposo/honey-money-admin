@@ -12,6 +12,8 @@ import { toast } from 'react-toastify';
 
 const PageContainer = styled.div`
   padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
 const PageHeader = styled.div`
@@ -126,7 +128,7 @@ export const FinancePage: React.FC = () => {
   });
 
   return (
-    <Layout activeMenuItem="projects">
+    <Layout activeMenuItem="finance">
       <Header />
       <PageContainer>
         <PageHeader>
